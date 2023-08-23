@@ -12,7 +12,7 @@ import {
 } from 'class-validator';
 import {
   ProductCharacteristicsDTO,
-  ProductImageDTO,
+  ProductImagesDTO,
 } from './CreateProduct.dto';
 
 export class UpdateProductDTO {
@@ -52,9 +52,9 @@ export class UpdateProductDTO {
   @ValidateNested()
   @IsArray()
   @ArrayMinSize(1)
-  @Type(() => ProductImageDTO)
+  @Type(() => ProductImagesDTO)
   @IsOptional()
-  images: ProductImageDTO[];
+  images: ProductImagesDTO[];
 
   @IsString()
   @IsNotEmpty({ message: 'Categoria do produto não pode ser vazia!' })

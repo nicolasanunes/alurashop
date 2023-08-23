@@ -11,17 +11,24 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
+import { ProductEntity } from '../product.entity';
 
 export class ProductCharacteristicsDTO {
+  id: string;
+
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
   @MaxLength(1000)
   description: string;
+
+  product: ProductEntity;
 }
 
-export class ProductImageDTO {
+export class ProductImagesDTO {
+  id: string;
+
   @IsNotEmpty()
   @IsUrl()
   url: string;
@@ -29,6 +36,8 @@ export class ProductImageDTO {
   @IsNotEmpty()
   @MaxLength(1000)
   description: string;
+
+  product: ProductEntity;
 }
 
 export class CreateProductDTO {
@@ -58,8 +67,8 @@ export class CreateProductDTO {
   @ValidateNested()
   @IsArray()
   @ArrayMinSize(1)
-  @Type(() => ProductImageDTO)
-  images: ProductImageDTO[];
+  @Type(() => ProductImagesDTO)
+  images: ProductImagesDTO[];
 
   @IsNotEmpty()
   category: string;

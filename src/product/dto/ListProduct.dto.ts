@@ -3,19 +3,21 @@ class ListProductCharacteristicsDTO {
   description: string;
 }
 
-class ListImageProductDTO {
+class ListProductImagesDTO {
   url: string;
   description: string;
 }
 
 export class ListProductDTO {
-  id: string;
-  userId: string;
-  name: string;
-  value: number;
-  availableQuantity: number;
-  description: string;
-  characteristics: ListProductCharacteristicsDTO[];
-  images: ListImageProductDTO[];
-  category: string;
+  constructor(
+    readonly id: string,
+    readonly userId: string,
+    readonly name: string,
+    readonly value: number,
+    readonly availableQuantity: number,
+    readonly description: string,
+    readonly characteristics: ListProductCharacteristicsDTO[],
+    readonly images: ListProductImagesDTO[],
+    readonly category: string,
+  ) {}
 }
