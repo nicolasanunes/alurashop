@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductEntity } from './product.entity';
 
 @Entity({ name: 'product_characteristics' })
-export class ProductCharacteristics {
+export class ProductCharacteristicsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

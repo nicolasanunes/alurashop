@@ -1,24 +1,29 @@
 import {
-  ValidationArguments,
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
   registerDecorator,
 } from 'class-validator';
-import { UserRepository } from '../user.repository';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { UserService } from '../user.service';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class EmailValidator implements ValidatorConstraintInterface {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userService: UserService) {}
 
-  async validate(
-    value: any,
-    validationArguments?: ValidationArguments,
-  ): Promise<boolean> {
-    const userExists = await this.userRepository.emailExists(value);
-    return !userExists;
+  async validate(value: any): Promise<boolean> {
+    try {
+      const userHasEmail = await this.userService.findByEmail(value);
+
+      return !userHasEmail;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        return true;
+      }
+
+      throw error;
+    }
   }
 }
 

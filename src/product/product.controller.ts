@@ -8,11 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateProductDTO } from './dto/CreateProduct.dto';
-import { ProductEntity } from './product.entity';
-import { randomUUID } from 'crypto';
 import { UpdateProductDTO } from './dto/UpdateProduct.dto';
 import { ProductService } from './product.service';
-import { ListProductDTO } from './dto/ListProduct.dto';
 
 @Controller('/products')
 export class ProductController {
@@ -20,30 +17,10 @@ export class ProductController {
 
   @Post()
   async createProduct(@Body() productData: CreateProductDTO) {
-    const productEntity = new ProductEntity();
-    productEntity.id = randomUUID();
-    productEntity.name = productData.name;
-    productEntity.userId = productData.userId;
-    productEntity.value = productData.value;
-    productEntity.availableQuantity = productData.availableQuantity;
-    productEntity.description = productData.description;
-    productEntity.characteristics = productData.characteristics;
-    productEntity.images = productData.images;
-    productEntity.category = productData.category;
+    const createdProduct = await this.productService.createProduct(productData);
 
-    this.productService.createProduct(productEntity);
     return {
-      product: new ListProductDTO(
-        productEntity.id,
-        productEntity.name,
-        productEntity.userId,
-        productEntity.value,
-        productEntity.availableQuantity,
-        productEntity.description,
-        productEntity.characteristics,
-        productEntity.images,
-        productEntity.category,
-      ),
+      product: createdProduct,
       message: 'Produto criado com sucesso!',
     };
   }

@@ -5,7 +5,6 @@ import {
   IsNotEmpty,
   IsNumber,
   IsPositive,
-  IsUUID,
   IsUrl,
   MaxLength,
   Min,
@@ -41,9 +40,6 @@ export class ProductImagesDTO {
 }
 
 export class CreateProductDTO {
-  @IsUUID(undefined, { message: 'ID de usuário inválido!' })
-  userId: string;
-
   @IsNotEmpty()
   name: string;
 
